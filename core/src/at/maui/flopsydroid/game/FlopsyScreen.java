@@ -6,24 +6,19 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 import at.maui.flopsydroid.FlopsyDroidGame;
 
-/**
- * Created by maui on 07.07.2014.
- */
 public class FlopsyScreen implements Screen {
 
     public final static float SPEED = 3f;
     public final static float PIPE_INTERVAL = 1.4f;
 
-    private TextureAtlas mTextureAtlas;
-    private Stage mStage;
+    private final TextureAtlas mTextureAtlas;
+    private final Stage mStage;
 
     private Ground mGround;
     private Droid mAndy;
@@ -34,9 +29,9 @@ public class FlopsyScreen implements Screen {
 
     private Label mScoreLabel;
     private int mScore = 0;
-    private Label.LabelStyle mLabelStyle;
+    private final Label.LabelStyle mLabelStyle;
 
-    private OnGlobalListener mGlobalListener;
+    private final OnGlobalListener mGlobalListener;
 
     public FlopsyScreen(FlopsyDroidGame game, OnGlobalListener listener) {
         mStage = new Stage();
@@ -51,25 +46,22 @@ public class FlopsyScreen implements Screen {
         mLabelStyle.font = new BitmapFont(Gdx.files.internal("flappyfont.fnt"),
                 Gdx.files.internal("flappyfont.png"), false);
 
-        mStage.addListener(new EventListener() {
-            @Override
-            public boolean handle(Event event) {
+        mStage.addListener(event -> {
 
-                if(event.getTarget().equals(mAndy)) {
-                    mGround.onDroidCollision();
-                    return true;
-                }
-
-                return false;
+            if(event.getTarget().equals(mAndy)) {
+                mGround.onDroidCollision();
+                return true;
             }
+
+            return false;
         });
     }
 
     public void addScoreLabel() {
         mScoreLabel = new Label("0", mLabelStyle);
         mScoreLabel.setPosition(
-                mStage.getViewport().getViewportWidth() / 2 - mScoreLabel.getWidth() / 2,
-                mStage.getViewport().getViewportHeight() - mScoreLabel.getHeight());
+                mStage.getViewport().getWorldWidth() / 2 - mScoreLabel.getWidth() / 2,
+                mStage.getViewport().getWorldHeight() - mScoreLabel.getHeight());
         mStage.addActor(mScoreLabel);
     }
 
@@ -109,24 +101,21 @@ public class FlopsyScreen implements Screen {
         if (r == 0) {
             dy = -dy;
         }
-        Pipe pipe1 = new Pipe(mTextureAtlas.findRegion("pipe", 1), mStage, mAndy, true, new OnScoreListener() {
-            @Override
-            public void onScored() {
-                mScore++;
-                mScoreLabel.setText(""+mScore);
+        Pipe pipe1 = new Pipe(mTextureAtlas.findRegion("pipe", 1), mStage, mAndy, true, () -> {
+            mScore++;
+            mScoreLabel.setText(""+mScore);
 
-                if(mGlobalListener != null)
-                    mGlobalListener.onScored();
-            }
+            if(mGlobalListener != null)
+                mGlobalListener.onScored();
         });
         pipe1.setZIndex(1);
-        float x = mStage.getViewport().getViewportWidth();
-        float y = (mStage.getViewport().getViewportHeight() - Ground.GROUND_HEIGHT) / 2
+        float x = mStage.getViewport().getWorldWidth();
+        float y = (mStage.getViewport().getWorldHeight() - Ground.GROUND_HEIGHT) / 2
                 + Ground.GROUND_HEIGHT + Pipe.PIPE_HOLE / 2;
         pipe1.setPosition(x, y + dy);
         Pipe pipe2 = new Pipe(mTextureAtlas.findRegion("pipe", 2), mStage, mAndy);
         pipe2.setZIndex(1);
-        y = (mStage.getViewport().getViewportHeight() - Ground.GROUND_HEIGHT) / 2
+        y = (mStage.getViewport().getWorldHeight() - Ground.GROUND_HEIGHT) / 2
                 + Ground.GROUND_HEIGHT - pipe2.getHeight()
                 - Pipe.PIPE_HOLE / 2;
         pipe2.setPosition(x, y + dy);
@@ -183,17 +172,14 @@ public class FlopsyScreen implements Screen {
         TextureRegion[] droidRegions = new TextureRegion[] {
                 mTextureAtlas.findRegion("andy", 1), mTextureAtlas.findRegion("andy", 2),
                 mTextureAtlas.findRegion("andy", 3) };
-        mAndy = new Droid(droidRegions, new OnDroidCollisionListener() {
-            @Override
-            public void onDroidCollision() {
-                mGround.onDroidCollision();
+        mAndy = new Droid(droidRegions, () -> {
+            mGround.onDroidCollision();
 
-                if(mGlobalListener != null)
-                    mGlobalListener.onGameOver(mScore);
-            }
+            if(mGlobalListener != null)
+                mGlobalListener.onGameOver(mScore);
         });
-        mAndy.setPosition(mStage.getViewport().getViewportHeight() / 2 - mAndy.getWidth(),
-                mStage.getViewport().getViewportWidth() / 2);
+        mAndy.setPosition(mStage.getViewport().getWorldHeight() / 2 - mAndy.getWidth(),
+                mStage.getViewport().getWorldWidth() / 2);
         mStage.addActor(mAndy);
     }
 
@@ -204,6 +190,7 @@ public class FlopsyScreen implements Screen {
 
     public void addBackground() {
         Image bg = new Image(mTextureAtlas.findRegion("bg"));
+        bg.setSize(mStage.getViewport().getWorldWidth(), mStage.getViewport().getWorldHeight());
         mStage.addActor(bg);
     }
 }

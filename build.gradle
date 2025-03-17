@@ -1,69 +1,32 @@
 buildscript {
     repositories {
+        google()
         mavenCentral()
-        mavenLocal()
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.android.tools.build:gradle:8.9.0'
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
 }
 
 allprojects {
-    apply plugin: "eclipse"
-    apply plugin: "idea"
-
-    version = '1.0'
-    ext {
-        appName = 'Flopsy Droid'
-        gdxVersion = '1.2.0'
-        roboVMVersion = '0.0.13'
-    }
-
     repositories {
-        mavenLocal()
+        google()
         mavenCentral()
-        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
     }
 }
 
-project(":desktop") {
-    apply plugin: "java"
-
-
+project(':core') {
+    apply plugin: 'java'
     dependencies {
-        compile project(":core")
-        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
-        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        implementation "com.badlogicgames.gdx:gdx:1.13.1"
     }
 }
 
-project(":wear") {
-    apply plugin: "android"
-
-    configurations { natives }
-
-    dependencies {
-        compile project(":core")
-        compile 'com.android.support:support-v4:+'
-        compile 'com.google.android.support:wearable:+'
-        compile 'com.google.android.gms:play-services-wearable:+'
-        compile "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
-        natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
-    }
-}
-
-project(":core") {
-    apply plugin: "java"
-
-
-    dependencies {
-        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
-    }
-}
-
-tasks.eclipse.doLast {
-    delete ".project"
+// Additional modernizations
+tasks.register('clean', Delete) {
+    delete getLayout().getBuildDirectory()
 }

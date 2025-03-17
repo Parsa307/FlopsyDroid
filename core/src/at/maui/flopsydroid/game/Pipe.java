@@ -6,19 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-/**
- * Created by maui on 08.07.2014.
- */
 public class Pipe extends Image {
 
     public static final float PIPE_HOLE = 102f;
 
-    private Droid mAndy;
+    private final Droid mAndy;
 
-    private Stage mStage;
-    private boolean mCountPipe = false;
+    private final Stage mStage;
+    private boolean mCountPipe;
 
-    private OnScoreListener mListener;
+    private final OnScoreListener mListener;
 
     public Pipe(TextureRegion region, Stage stage, Droid droid) {
         this(region, stage, droid, false, null);
@@ -53,7 +50,7 @@ public class Pipe extends Image {
         }
 
         if (getX() <= mAndy.getX()) {
-            if (mAndy.getY() >= mStage.getViewport().getViewportHeight()) {
+            if (mAndy.getY() >= mStage.getViewport().getWorldHeight()) {
                 mAndy.gotHit();
             }
 
