@@ -1,4 +1,6 @@
-![Icon for Flopsy Droid](flopsydroid.png)
+<p align="center">
+    <img src="flopsydroid.png">
+</p>
 
 Modern Flopsy Droid that can be compiled in Modern Version of **Android Studio**
 
