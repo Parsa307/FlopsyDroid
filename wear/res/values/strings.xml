@@ -2,5 +2,4 @@
 <resources>
     <string name="app_name">Flopsy Droid</string>
     <string name="new_highscore">Congrats, new Highscore! %d Pts.</string>
-    <string name="about_desc">Floppsy Droid\n\nFlying Droids on your Android Wear device.\n\nHacked together by\nSebastian Mauer</string>
 </resources>
