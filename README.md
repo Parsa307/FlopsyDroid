@@ -1,6 +1,3 @@
-flopsydroid
-===========
-
 ![Icon for Flopsy Droid](flopsydroid.png)
 
 Modern Flopsy Droid that can be compiled in Modern Version of **Android Studio**
