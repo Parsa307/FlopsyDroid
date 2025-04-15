@@ -1,1 +1,1 @@
-include 'wear', 'core'
+include ':wear', ':core'
