@@ -63,25 +63,9 @@ public class Pipe extends Image {
         checkCollision();
     }
 
-    public void addScore() {
-        if (getX() <= mAndy.getX()) {
-
-                //Screenplay.land.clearActions();
-                //Flappybird.Sounds.get(config.SoundsHit).play();
-
-            /*if (getScore) {
-                getScore = false;
-                bird.updateScore();
-                Flappybird.Sounds.get(config.SoundsScore).play();
-            }*/
-        }
-    }
-
     public void checkCollision() {
         if (isCollision()) {
             mAndy.gotHit();
-            //Screenplay.land.clearActions();
-            //Flappybird.Sounds.get(config.SoundsHit).play();
         }
     }
 
