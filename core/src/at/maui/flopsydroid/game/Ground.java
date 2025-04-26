@@ -17,7 +17,6 @@ public class Ground extends Image implements OnDroidCollisionListener {
 
         mAndy = andy;
         addAction(Actions.forever(Actions.moveBy(-GROUND_WIDTH, 0f, 3f)));
-        boolean mHit = true;
     }
 
     @Override
@@ -28,10 +27,6 @@ public class Ground extends Image implements OnDroidCollisionListener {
         }
         if (checkCollision()) {
             mAndy.hitGround();
-            /*if (mHit && Pipe.getPIPE_HIT() == 1) {
-                mHit = false;
-                // TODO: Vibrate
-            }*/
         }
     }
 
