@@ -23,7 +23,7 @@ jobs:
         run: ./gradlew assembleRelease
 
       - name: Upload artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: wear-release.apk
           path: wear/build/outputs/apk/release/wear-release.apk
