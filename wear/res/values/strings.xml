@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Flopsy Droid</string>
-    <string name="new_highscore">Congrats, new Highscore! %d Pts.</string>
 </resources>
