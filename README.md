@@ -2,14 +2,10 @@
     <img src="flopsydroid.png">
 </p>
 
-Modern Flopsy Droid that can be compiled in Modern Version of **Android Studio**
+Maintained version of Flopsy Droid.
 
-Sadly we can't get the **Selection Screen** working so we removed it :(
+If you found any bugs feel, free to open an [Issue](https://github.com/Parsa307/FlopsyDroid/issues). 
 
-And this Project has fixed the **Background** problem when the **Background** looks messy for smaller screens!
+If you want to contribute to the Project, do a [PR](https://github.com/Parsa307/FlopsyDroid/pulls).
 
-If you found any bugs feel free to report it I would try to fix it ASAP!
-
-If you make it working feel free to do a pull request, I would appreciate your help!
-
-This project is not afflicted with **mauimauer** in any way!
+This project is not afflicted with **mauimauer**!
