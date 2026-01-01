@@ -13,8 +13,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup OpenJDK
-        run: sudo apt install -yq openjdk-21-jdk
+      - name: Setup JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: "25"
+          cache: "gradle"
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
