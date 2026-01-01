@@ -32,6 +32,6 @@ configurations.configureEach {
 dependencies {
     implementation project(':core')
     implementation "com.badlogicgames.gdx:gdx:1.13.5"
-    implementation "com.badlogicgames.gdx:gdx-backend-android:1.13.5"
+    implementation "com.badlogicgames.gdx:gdx-backend-android:1.14.0"
     implementation "androidx.appcompat:appcompat:1.7.1"
 }
