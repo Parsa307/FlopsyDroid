@@ -8,4 +8,4 @@ If you found any bugs, feel free to open an [Issue](https://github.com/Parsa307/
 
 If you want to contribute to the Project, feel free to do an [PR](https://github.com/Parsa307/FlopsyDroid/pulls).
 
-This project is not afflicted with **mauimauer**!
+This project is not affiliated with **mauimauer**!
