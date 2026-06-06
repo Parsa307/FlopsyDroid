@@ -6,7 +6,7 @@ android {
     defaultConfig {
         namespace "at.maui.flopsydroid.android"
         minSdkVersion 25
-        targetSdkVersion 35
+        targetSdkVersion 37
         versionCode 1
         versionName "1.0"
         signingConfig signingConfigs.debug
