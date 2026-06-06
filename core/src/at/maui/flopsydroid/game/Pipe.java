@@ -6,19 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-/**
- * Created by maui on 08.07.2014.
- */
 public class Pipe extends Image {
 
     public static final float PIPE_HOLE = 102f;
 
-    private Droid mAndy;
+    private final Droid mAndy;
 
-    private Stage mStage;
-    private boolean mCountPipe = false;
+    private final Stage mStage;
+    private boolean mCountPipe;
 
-    private OnScoreListener mListener;
+    private final OnScoreListener mListener;
 
     public Pipe(TextureRegion region, Stage stage, Droid droid) {
         this(region, stage, droid, false, null);
@@ -53,7 +50,7 @@ public class Pipe extends Image {
         }
 
         if (getX() <= mAndy.getX()) {
-            if (mAndy.getY() >= mStage.getViewport().getViewportHeight()) {
+            if (mAndy.getY() >= mStage.getViewport().getWorldHeight()) {
                 mAndy.gotHit();
             }
 
@@ -66,25 +63,9 @@ public class Pipe extends Image {
         checkCollision();
     }
 
-    public void addScore() {
-        if (getX() <= mAndy.getX()) {
-
-                //Screenplay.land.clearActions();
-                //Flappybird.Sounds.get(config.SoundsHit).play();
-
-            /*if (getScore) {
-                getScore = false;
-                bird.updateScore();
-                Flappybird.Sounds.get(config.SoundsScore).play();
-            }*/
-        }
-    }
-
     public void checkCollision() {
         if (isCollision()) {
             mAndy.gotHit();
-            //Screenplay.land.clearActions();
-            //Flappybird.Sounds.get(config.SoundsHit).play();
         }
     }
 

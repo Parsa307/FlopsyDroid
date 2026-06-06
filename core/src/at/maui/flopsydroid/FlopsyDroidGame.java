@@ -2,17 +2,15 @@ package at.maui.flopsydroid;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.math.Vector2;
 
 import at.maui.flopsydroid.game.FlopsyScreen;
 import at.maui.flopsydroid.game.OnGlobalListener;
 
 public class FlopsyDroidGame extends Game {
 
-    private static final Vector2 VIEWPORT = new Vector2(320, 480);
-    private AssetManager mAssetManager = new AssetManager();
+    private final AssetManager mAssetManager = new AssetManager();
 
-    private OnGlobalListener mListener;
+    private final OnGlobalListener mListener;
 
     public FlopsyDroidGame(OnGlobalListener listener) {
         mListener = listener;

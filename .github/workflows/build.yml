@@ -1,0 +1,33 @@
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - README.md
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup JDK
+        uses: actions/setup-java@v5
+        with:
+          distribution: "temurin"
+          java-version: "25"
+          cache: "gradle"
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Build
+        run: ./gradlew assembleRelease
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: wear-release.apk
+          path: wear/build/outputs/apk/release/wear-release.apk

@@ -4,8 +4,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Event;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.RotateToAction;
@@ -13,9 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-/**
- * Created by maui on 08.07.2014.
- */
 public class Droid extends Image {
 
     public static final int JUMP_HEIGHT = 30;
@@ -23,8 +18,7 @@ public class Droid extends Image {
     public static final float ANIMATION_DURATION = 0.6f;
 
     private Action mCurrentAction;
-    private Animation mAnimation;
-    private TextureRegion mCurrentFrame;
+    private final Animation<TextureRegion> mAnimation;
 
     private float mDuration;
     private boolean mDead;
@@ -33,7 +27,7 @@ public class Droid extends Image {
     public Droid(TextureRegion[] regions, OnDroidCollisionListener listener) {
         super(regions[0]);
         setOrigin(getWidth() / 2, getHeight() / 2);
-        mAnimation = new Animation(ANIMATION_DURATION, regions);
+        mAnimation = new Animation<>(ANIMATION_DURATION, regions);
         mDuration = 0;
         mDead = false;
         mListener = listener;
@@ -49,7 +43,7 @@ public class Droid extends Image {
 
         // Update Andy's animation frame
         mDuration += delta;
-        mCurrentFrame = mAnimation.getKeyFrame(mDuration, true);
+        TextureRegion mCurrentFrame = mAnimation.getKeyFrame(mDuration, true);
         setDrawable(new TextureRegionDrawable(mCurrentFrame));
     }
 
@@ -66,7 +60,7 @@ public class Droid extends Image {
         faceDown.setRotation(-90);
 
         MoveToAction moveDown = new MoveToAction();
-        moveDown.setDuration(getDownwardDuration(getX(), Ground.GROUND_HEIGHT));
+        moveDown.setDuration(getDownwardDuration(getX()));
         moveDown.setPosition(getX(), Ground.GROUND_HEIGHT);
         moveDown.setInterpolation(Interpolation.sineIn);
 
@@ -84,7 +78,7 @@ public class Droid extends Image {
 
         removeAction(mCurrentAction);
         MoveToAction moveDown = new MoveToAction();
-        moveDown.setDuration(getDownwardDuration(getX(), Ground.GROUND_HEIGHT));
+        moveDown.setDuration(getDownwardDuration(getX()));
         moveDown.setPosition(getX(),  Ground.GROUND_HEIGHT);
         moveDown.setInterpolation(Interpolation.sineIn);
         mCurrentAction = new SequenceAction(moveDown);
@@ -111,7 +105,7 @@ public class Droid extends Image {
         Action fly = new ParallelAction(faceup, moveup);
         RotateToAction faceDown = new RotateToAction();
 
-        float duration = getDownwardDuration(y, Ground.GROUND_HEIGHT);
+        float duration = getDownwardDuration(y);
         faceDown.setDuration(duration);
         faceDown.setRotation(-90);
         MoveToAction moveDown = new MoveToAction();
@@ -124,8 +118,8 @@ public class Droid extends Image {
         addAction(mCurrentAction);
     }
 
-    private float getDownwardDuration(float up, float down) {
-        float dy = up - down;
+    private float getDownwardDuration(float up) {
+        float dy = up - Ground.GROUND_HEIGHT;
         float duration;
 
         if (dy <=  JUMP_HEIGHT) {
