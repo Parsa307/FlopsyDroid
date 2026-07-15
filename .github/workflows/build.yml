@@ -29,5 +29,5 @@ jobs:
       - name: Upload artifacts
         uses: actions/upload-artifact@v7
         with:
-          name: wear-release.apk
           path: wear/build/outputs/apk/release/wear-release.apk
+          archive: false
